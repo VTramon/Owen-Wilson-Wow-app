@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_element
 
 import 'package:flutter/material.dart';
-import 'package:owen_wilson/components/button.dart';
+import 'package:owen_wilson/components/buttons/screen_button.dart';
 import 'package:owen_wilson/components/text_card.dart';
+import 'package:owen_wilson/screens/options.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,9 +16,53 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 10.0,
-          title: Row(
+        // appBar: AppBar(
+        //   // elevation: 10.0,
+        //   // backgroundColor: Theme.of(context).colorScheme.primary,
+        //   toolbarHeight: 55,
+        //   shadowColor: Theme.of(context).colorScheme.primary,
+        //   // foregroundColor: Colors.transparent,
+        //   // shape: RoundedRectangleBorder(
+        //   //   borderRadius: BorderRadius.only(
+        //   //     bottomLeft: Radius.circular(62.0),
+        //   //   ),
+        //   // ),
+        // ),
+        body: _HomeBody());
+  }
+}
+
+class _HomeHeader extends StatelessWidget {
+  const _HomeHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(bottom: 32.0),
+        child: Container(
+          height: 144.0,
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  offset: Offset.zero,
+                  blurRadius: 20.0,
+                ),
+              ],
+              // backgroundColor: Theme.of(context).colorScheme.primary,
+              // toolbarHeight: 144,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(62.0),
+              )
+              // RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.only(
+              //     bottomLeft: Radius.circular(62.0),
+              //   ),
+              // ),
+
+              ),
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -31,36 +76,44 @@ class _HomePageState extends State<HomePage> {
                 'Owen\nWilson\nwows',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'RedRose',
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontFamily: 'RedRose',
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               )
             ],
           ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          toolbarHeight: 144,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(62.0),
-            ),
-          ),
-        ),
-        body: _HomeBody());
+        ));
   }
 }
 
-class _HomeBody extends StatelessWidget {
+class _HomeBody extends StatefulWidget {
   const _HomeBody({Key? key}) : super(key: key);
 
+  @override
+  State<_HomeBody> createState() => _HomeBodyState();
+}
+
+// class _HomeBodyState extends State<_HomeBody> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+
+//     );
+//   }
+// }
+
+class _HomeBodyState extends State<_HomeBody> {
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        _HomeHeader(),
         Padding(
-          padding: const EdgeInsets.only(top: 32.0),
+          padding: const EdgeInsets.fromLTRB(0, 32.0, 0, 16.0),
           child: Center(
-              child: ButtonComponent(
+              child: ScreenButtonComponent(
+            onPressed: OptionScreen(),
             title: 'WOW',
           )),
         ),

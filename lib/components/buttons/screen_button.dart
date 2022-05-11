@@ -1,10 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_element
 
 import 'package:flutter/material.dart';
 
-class ButtonComponent extends StatelessWidget {
+class ScreenButtonComponent extends StatelessWidget {
   final String title;
-  const ButtonComponent({Key? key, required this.title}) : super(key: key);
+  final Widget onPressed;
+  const ScreenButtonComponent(
+      {Key? key, required this.title, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,16 @@ class ButtonComponent extends StatelessWidget {
           ],
         ),
         child: ElevatedButton(
-          onPressed: null,
+          onPressed: () async {
+            final pop = await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => onPressed,
+              ),
+            );
+            if (pop == true) {
+              setState() {}
+            }
+          },
           child: Text(
             title,
             style: Theme.of(context).textTheme.button,
