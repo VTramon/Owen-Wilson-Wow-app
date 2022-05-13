@@ -5,9 +5,9 @@ import 'package:owen_wilson/models/options.dart';
 
 class WowButton extends StatefulWidget {
   final String title;
-  final Widget? onPressed;
+  final void Function()? onPressed;
   final bool? selected;
-  // final void Function(String) updateState;
+  // final Function callback;
   OptionsModel? option = OptionsModel();
 
   WowButton({
@@ -16,6 +16,7 @@ class WowButton extends StatefulWidget {
     required this.title,
     this.onPressed,
     this.selected,
+    // required this.callback,
     // required this.updateState,
   }) : super(key: key);
 
@@ -23,7 +24,7 @@ class WowButton extends StatefulWidget {
   State<WowButton> createState() => _WowButtonState();
 }
 
-class SetState {}
+// class SetState {}
 
 // class _WowButtonState extends State<WowButton> {
 //   @override
@@ -55,10 +56,14 @@ class _WowButtonState extends State<WowButton> {
             ],
           ),
           child: ElevatedButton(
-            onPressed: () {
-              widget.option?.setSelected(widget.title);
-              // widget.updateState;
-            },
+            onPressed: widget.onPressed,
+            //  () {
+            //   widget.option?.setSelected(widget.title);
+            //     () {
+            //   debugPrint('test');
+            //   widget.callback;
+            // },
+            // },
             child: Text(
               widget.title,
               style: Theme.of(context).textTheme.bodyText2,

@@ -13,21 +13,13 @@ class OptionScreen extends StatefulWidget {
   State<OptionScreen> createState() => _OptionScreenState();
 }
 
-// class _OptionScreenState extends State<OptionScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-
-//     );
-//   }
-// }
-
 class _OptionScreenState extends State<OptionScreen> {
-  late String selected;
+  String selected = '';
 
-  void setSelectedButton(String value) {
+  void _setSelectedButton(String value) {
     setState(() {
       selected = value;
+      debugPrint('selected: $selected');
     });
   }
 
@@ -53,32 +45,30 @@ class _OptionScreenState extends State<OptionScreen> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   WowButton(
+                    onPressed: () => _setSelectedButton('random'),
                     title: 'Random',
-                    // updateState: () => 'test',
                   ),
                   WowButton(
+                    onPressed: () => _setSelectedButton('year'),
                     title: 'By year',
-                    // updateState: setSelectedButton('year'),
                   ),
                   WowButton(
+                    onPressed: () => _setSelectedButton('movie'),
                     title: 'By movie',
-                    // updateState: setSelectedButton('movie'),
                   ),
                   WowButton(
+                    onPressed: () => _setSelectedButton('director'),
                     title: 'By director',
-                    // updateState: setSelectedButton('director'),
                   ),
                 ],
               ),
             ),
           ),
           ListTile(
-            title: widget.option.option != null
-                ? Text(selected)
-                : Text(
-                    'null',
-                    style: TextStyle(fontSize: 50.0),
-                  ),
+            title: Text(
+              selected.toString(),
+              style: TextStyle(fontSize: 50.0),
+            ),
           ),
         ],
       ),
