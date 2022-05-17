@@ -38,52 +38,44 @@ class _HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(bottom: 32.0),
-        child: Container(
-          height: 144.0,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  offset: Offset.zero,
-                  blurRadius: 20.0,
-                ),
-              ],
-              // backgroundColor: Theme.of(context).colorScheme.primary,
-              // toolbarHeight: 144,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(62.0),
-              )
-              // RoundedRectangleBorder(
-              //   borderRadius: BorderRadius.only(
-              //     bottomLeft: Radius.circular(62.0),
-              //   ),
-              // ),
-
+      padding: EdgeInsets.only(bottom: 32.0),
+      child: Container(
+        height: 144.0,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                offset: Offset.zero,
+                blurRadius: 20.0,
               ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Image.asset(
-                'images/wow.png',
-                width: 95.0,
-                height: 95.0,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                'Owen\nWilson\nwows',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'RedRose',
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              )
             ],
-          ),
-        ));
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(62.0),
+            )),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.asset(
+              'images/wow.png',
+              width: 95.0,
+              height: 95.0,
+              fit: BoxFit.cover,
+            ),
+            Text(
+              'Owen\nWilson\nwows',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: 'RedRose',
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -93,15 +85,6 @@ class _HomeBody extends StatefulWidget {
   @override
   State<_HomeBody> createState() => _HomeBodyState();
 }
-
-// class _HomeBodyState extends State<_HomeBody> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-
-//     );
-//   }
-// }
 
 class _HomeBodyState extends State<_HomeBody> {
   @override

@@ -57,13 +57,6 @@ class _WowButtonState extends State<WowButton> {
           ),
           child: ElevatedButton(
             onPressed: widget.onPressed,
-            //  () {
-            //   widget.option?.setSelected(widget.title);
-            //     () {
-            //   debugPrint('test');
-            //   widget.callback;
-            // },
-            // },
             child: Text(
               widget.title,
               style: Theme.of(context).textTheme.bodyText2,

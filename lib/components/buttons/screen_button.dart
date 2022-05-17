@@ -16,7 +16,7 @@ class ScreenButtonComponent extends StatelessWidget {
           BoxConstraints(minWidth: 81.0, minHeight: 32.0, maxHeight: 32.0),
       child: Container(
         decoration: BoxDecoration(
-          // color: Colors.black,
+          borderRadius: BorderRadius.circular(15.0),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.5),

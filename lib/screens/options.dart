@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/components/buttons/wow_button.dart';
+import 'package:owen_wilson/http/webclients/wow_webclient.dart';
 import 'package:owen_wilson/models/options.dart';
 
 class OptionScreen extends StatefulWidget {
   OptionsModel option = OptionsModel();
+  final WowWebclient _wow = WowWebclient();
 
   OptionScreen({Key? key}) : super(key: key);
 
@@ -14,17 +16,20 @@ class OptionScreen extends StatefulWidget {
 }
 
 class _OptionScreenState extends State<OptionScreen> {
+  // List<dynamic> selected = List.empty(growable: true);
   String selected = '';
 
-  void _setSelectedButton(String value) {
+  void _setSelectedButton(String value) async {
     setState(() {
       selected = value;
-      debugPrint('selected: $selected');
+
+      // debugPrint('selected: $selected');
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // widget._wow.oneRandom().then((value) => value.first.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(
