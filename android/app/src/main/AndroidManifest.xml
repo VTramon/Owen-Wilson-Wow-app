@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.owen_wilson">
     <!-- Required to fetch data from the internet. -->
-<uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="owen_wilson"
         android:name="${applicationName}"
@@ -33,4 +32,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    
+<uses-permission android:name="android.permission.INTERNET" />
 </manifest>

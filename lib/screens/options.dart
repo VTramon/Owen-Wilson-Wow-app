@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/components/buttons/wow_button.dart';
-import 'package:owen_wilson/http/webclients/wow_webclient.dart';
+import 'package:owen_wilson/components/wow_options_forms/random.dart';
 import 'package:owen_wilson/models/options.dart';
 
 class OptionScreen extends StatefulWidget {
   OptionsModel option = OptionsModel();
-  final WowWebclient _wow = WowWebclient();
+  Widget? selected;
 
-  OptionScreen({Key? key}) : super(key: key);
+  OptionScreen({Key? key, this.selected}) : super(key: key);
 
   @override
   State<OptionScreen> createState() => _OptionScreenState();
@@ -17,11 +17,10 @@ class OptionScreen extends StatefulWidget {
 
 class _OptionScreenState extends State<OptionScreen> {
   // List<dynamic> selected = List.empty(growable: true);
-  String selected = '';
 
-  void _setSelectedButton(String value) async {
+  void _setSelectedButton(Widget value) async {
     setState(() {
-      selected = value;
+      widget.selected = value;
 
       // debugPrint('selected: $selected');
     });
@@ -50,31 +49,35 @@ class _OptionScreenState extends State<OptionScreen> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   WowButton(
-                    onPressed: () => _setSelectedButton('random'),
+                    onPressed: () => _setSelectedButton(RandomForm()),
                     title: 'Random',
                   ),
                   WowButton(
-                    onPressed: () => _setSelectedButton('year'),
+                    onPressed: () => _setSelectedButton(RandomForm()),
                     title: 'By year',
                   ),
                   WowButton(
-                    onPressed: () => _setSelectedButton('movie'),
+                    onPressed: () => _setSelectedButton(RandomForm()),
                     title: 'By movie',
                   ),
                   WowButton(
-                    onPressed: () => _setSelectedButton('director'),
+                    onPressed: () => _setSelectedButton(RandomForm()),
                     title: 'By director',
                   ),
                 ],
               ),
             ),
           ),
-          ListTile(
-            title: Text(
-              selected.toString(),
-              style: TextStyle(fontSize: 50.0),
-            ),
-          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
+            child: Center(child: widget.selected),
+          )
+          // ListTile(
+          //   title: Text(
+          //     widget.selected.toString(),
+          //     style: TextStyle(fontSize: 50.0),
+          //   ),
+          // ),
         ],
       ),
     );

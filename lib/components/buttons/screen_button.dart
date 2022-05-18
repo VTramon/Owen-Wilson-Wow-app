@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ScreenButtonComponent extends StatelessWidget {
   final String title;
-  final Widget onPressed;
+  final void Function() onPressed;
   const ScreenButtonComponent(
       {Key? key, required this.title, required this.onPressed})
       : super(key: key);
@@ -27,16 +27,7 @@ class ScreenButtonComponent extends StatelessWidget {
           ],
         ),
         child: ElevatedButton(
-          onPressed: () async {
-            final pop = await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => onPressed,
-              ),
-            );
-            if (pop == true) {
-              setState() {}
-            }
-          },
+          onPressed: onPressed,
           child: Text(
             title,
             style: Theme.of(context).textTheme.button,

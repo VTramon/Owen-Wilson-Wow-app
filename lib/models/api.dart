@@ -3,22 +3,22 @@
 import 'dart:core';
 
 class Api {
-  final String movie;
-  final int year;
-  final String release_date;
-  final String director;
-  final String character;
-  final String movie_duration;
-  final String timestamp;
-  final String full_line;
-  final int current_wow_in_movie;
-  final int total_wows_in_movie;
-  final String poster;
-  final String video;
-  final String audio;
+  final String? movie;
+  final int? year;
+  final String? release_date;
+  final String? director;
+  final String? character;
+  final String? movie_duration;
+  final String? timestamp;
+  final String? full_line;
+  final int? current_wow_in_movie;
+  final int? total_wows_in_movie;
+  final String? poster;
+  final Video? video;
+  final String? audio;
 
   Api(
-      this.movie,
+      {this.movie,
       this.year,
       this.release_date,
       this.director,
@@ -30,22 +30,23 @@ class Api {
       this.total_wows_in_movie,
       this.poster,
       this.video,
-      this.audio);
+      this.audio});
 
-  Api.fromJson(Map<String, dynamic> json)
-      : movie = json['movie'],
-        year = json['year'],
-        release_date = json['release_date'],
-        director = json['director'],
-        character = json['character'],
-        movie_duration = json['movie_duration'],
-        timestamp = json['timestamp'],
-        full_line = json['full_line'],
-        current_wow_in_movie = json['current_wow_in_movie'],
-        total_wows_in_movie = json['total_wows_in_movie'],
-        poster = json['poster'],
-        video = Video.fromJson(json['video']) as dynamic,
-        audio = json['audio'];
+  factory Api.fromJson(Map<String, dynamic> json) => Api(
+        movie: json['movie'],
+        year: json['year'],
+        release_date: json['release_date'],
+        director: json['director'],
+        character: json['character'],
+        movie_duration: json['movie_duration'],
+        timestamp: json['timestamp'],
+        full_line: json['full_line'],
+        current_wow_in_movie: json['current_wow_in_movie'],
+        total_wows_in_movie: json['total_wows_in_movie'],
+        poster: json['poster'],
+        video: Video.fromJson(json['video']),
+        audio: json['audio'],
+      );
 
   Map<String, dynamic> toJson() => {
         'movie': movie,
@@ -65,24 +66,24 @@ class Api {
 }
 
 class Video {
-  final String hight;
-  final String acceptable;
-  final String low;
-  final String veryLow;
+  final String? high;
+  final String? medium;
+  final String? low;
+  final String? veryLow;
 
-  Video(this.hight, this.acceptable, this.low, this.veryLow);
+  Video({this.high, this.medium, this.low, this.veryLow});
 
   // Api.fromJson(Map<String, dynamic> json) :
-  Video.fromJson(Map<String, dynamic> json)
-      : hight = json['1080p'],
-        acceptable = json['720p'],
-        low = json['480p'],
-        veryLow = json['360p'];
+  factory Video.fromJson(Map<String, dynamic> json) => Video(
+      high: json['1080p'],
+      medium: json['720p'],
+      low: json['480p'],
+      veryLow: json['360p']);
 
   Map<String, dynamic> toJson() => {
-        'hight': hight,
-        'acceptable': acceptable,
-        'low': low,
-        'veryLow': veryLow,
+        '1080p': high,
+        '720p': medium,
+        '480p': low,
+        '360p': veryLow,
       };
 }

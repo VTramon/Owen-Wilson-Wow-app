@@ -96,7 +96,13 @@ class _HomeBodyState extends State<_HomeBody> {
           padding: const EdgeInsets.fromLTRB(0, 32.0, 0, 16.0),
           child: Center(
               child: ScreenButtonComponent(
-            onPressed: OptionScreen(),
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OptionScreen(),
+                ),
+              );
+            },
             title: 'WOW',
           )),
         ),

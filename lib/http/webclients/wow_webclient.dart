@@ -1,30 +1,31 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:owen_wilson/models/api.dart';
 
 import '../webclient_http.dart';
 
 class WowWebclient {
-  Future<List<dynamic>> oneRandom() async {
+  Future<List<Api>> random() async {
     final Response response = await client.get(baseUrl('random'));
-
-    // debugPrint('response: ${response.body.toString()}');
+    // debugPrint(response.body + '\n');
+    debugPrint('${parseRandom(response)}');
     if (response.statusCode == 200) {
-      final List<dynamic> decodedJson = jsonDecode(response.body);
-
-      decodedJson.map((dynamic json) => Api.fromJson(json));
-
-      // debugPrint('DecodedJson: ${decodedJson.toString()}');
-
-      return decodedJson;
+      return parseRandom(response);
     } else {
-      throw Exception('something is happening');
+      throw Exception('something is wrong');
     }
+  }
 
-    // final result =
-    //     decodedJson.map((dynamic json) => Api.fromJson(json)).toList();
+  List<Api> parseRandom(Response response) {
+    final List<dynamic> parsed = jsonDecode(response.body);
 
-    // debugPrint('result: ${decodedJson.first.toString()}');
+    final List<Api> result = parsed.map((json) {
+      debugPrint(Api.fromJson(json).toString());
+      return Api.fromJson(json);
+    }).toList();
+
+    return result;
   }
 }

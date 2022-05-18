@@ -9,8 +9,6 @@ final InterceptedClient client = InterceptedClient.build(
   requestTimeout: const Duration(seconds: 10),
 );
 
-Uri baseUrl(String path) => Uri(
-    scheme: 'https',
-    host: 'owen-wilson-wow-api.herokuapp.com',
-    path: 'wows/$path');
+Uri baseUrl(String path) =>
+    Uri.parse('https://owen-wilson-wow-api.herokuapp.com/wows/$path');
 // https://owen-wilson-wow-api.herokuapp.com/wows/
