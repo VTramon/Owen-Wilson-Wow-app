@@ -37,12 +37,13 @@ class _RandomFormState extends State<RandomForm> {
           onPressed: () async {
             // wow.random();
             // debugPrint(widget.text?.text);
-            if (widget.text!.text.isNotEmpty) {
-              // WowWebclient().random(resultsLength: widget.text!.text);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (builder) =>
-                      WowScreen(resultsLength: widget.text!.text)));
-            }
+            // WowWebclient().random(resultsLength: widget.text!.text);
+            Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
+              if (widget.text!.text.isNotEmpty) {
+                return WowScreen(resultsLength: widget.text!.text);
+              }
+              return const WowScreen();
+            }));
           },
           title: 'Random',
         )

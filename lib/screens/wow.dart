@@ -4,7 +4,7 @@ import 'package:owen_wilson/models/api.dart';
 
 class WowScreen extends StatefulWidget {
   final String? resultsLength;
-  const WowScreen({Key? key, this.resultsLength = '3'}) : super(key: key);
+  const WowScreen({Key? key, this.resultsLength = '1'}) : super(key: key);
 
   @override
   State<WowScreen> createState() => _WowScreenState();
@@ -17,24 +17,25 @@ class _WowScreenState extends State<WowScreen> {
       future: WowWebclient().random(resultsLength: widget.resultsLength),
       builder: (BuildContext context, AsyncSnapshot<List<Api>> snapshot) {
         final data = snapshot.data;
-        if (data != null) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              break;
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            break;
 
-            case ConnectionState.waiting:
-              return const _DefaultReturn(loading: true);
+          case ConnectionState.waiting:
+            return const _DefaultReturn(loading: true);
+          // return const Scaffold(
+          //   body: Center(child: CircularProgressIndicator()),
+          // );
 
-            case ConnectionState.active:
-              break;
+          case ConnectionState.active:
+            break;
 
-            case ConnectionState.done:
-              if (data.length > 1) {
-                return ListContent(data);
-              } else {
-                return SingleContent(data: data.first);
-              }
-          }
+          case ConnectionState.done:
+            if (data!.length > 1) {
+              return ListContent(data);
+            } else {
+              return SingleContent(data: data.first);
+            }
         }
 
         return const _DefaultReturn(
