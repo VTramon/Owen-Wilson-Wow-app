@@ -9,6 +9,12 @@ final InterceptedClient client = InterceptedClient.build(
   requestTimeout: const Duration(seconds: 10),
 );
 
-Uri baseUrl(String path) =>
-    Uri.parse('https://owen-wilson-wow-api.herokuapp.com/wows/$path');
+Uri baseUrl({required String path, String? resultsLength}) {
+  if (resultsLength != null && resultsLength != '1') {
+    return Uri.parse(
+        'https://owen-wilson-wow-api.herokuapp.com/wows/$path?results=$resultsLength');
+  } else {
+    return Uri.parse('https://owen-wilson-wow-api.herokuapp.com/wows/$path');
+  }
+}
 // https://owen-wilson-wow-api.herokuapp.com/wows/

@@ -53,15 +53,18 @@ class _OptionScreenState extends State<OptionScreen> {
                     title: 'Random',
                   ),
                   WowButton(
-                    onPressed: () => _setSelectedButton(RandomForm()),
+                    onPressed: null,
+                    // onPressed: () => _setSelectedButton(RandomForm()),
                     title: 'By year',
                   ),
                   WowButton(
-                    onPressed: () => _setSelectedButton(RandomForm()),
+                    onPressed: null,
+                    // onPressed: () => _setSelectedButton(RandomForm()),
                     title: 'By movie',
                   ),
                   WowButton(
-                    onPressed: () => _setSelectedButton(RandomForm()),
+                    onPressed: null,
+                    // onPressed: () => _setSelectedButton(RandomForm()),
                     title: 'By director',
                   ),
                 ],
@@ -72,12 +75,6 @@ class _OptionScreenState extends State<OptionScreen> {
             padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
             child: Center(child: widget.selected),
           )
-          // ListTile(
-          //   title: Text(
-          //     widget.selected.toString(),
-          //     style: TextStyle(fontSize: 50.0),
-          //   ),
-          // ),
         ],
       ),
     );

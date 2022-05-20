@@ -16,41 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
-  // late final AnimationController _ColorAnimationController;
-  // late final AnimationController _TextAnimationController;
-  // late final Animation _colorTween, _iconColorTween;
-  // late final Animation<Offset> _transTween;
-
-  // @override
-  // void initState() {
-  //   _ColorAnimationController =
-  //       AnimationController(vsync: this, duration: Duration(seconds: 0));
-  //   _colorTween = ColorTween(begin: Colors.transparent, end: Color(0xFFee4c4f))
-  //       .animate(_ColorAnimationController);
-  //   _iconColorTween = ColorTween(begin: Colors.grey, end: Colors.white)
-  //       .animate(_ColorAnimationController);
-
-  //   _TextAnimationController =
-  //       AnimationController(vsync: this, duration: Duration(seconds: 0));
-
-  //   _transTween = Tween(begin: Offset(-10, 40), end: Offset(-10, 0))
-  //       .animate(_TextAnimationController);
-
-  //   super.initState();
-  // }
-
-  // bool _scrollListener(ScrollNotification scrollInfo) {
-  //   if (scrollInfo.metrics.axis == Axis.vertical) {
-  //     _ColorAnimationController.animateTo(scrollInfo.metrics.pixels / 350);
-
-  //     _TextAnimationController.animateTo(
-  //         (scrollInfo.metrics.pixels - 350) / 50);
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -107,14 +72,3 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     );
   }
 }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     SystemChrome.setSystemUIOverlayStyle(
-//         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-//     return 
-//   }
-// }

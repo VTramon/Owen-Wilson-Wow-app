@@ -4,8 +4,8 @@ import 'package:owen_wilson/http/webclients/wow_webclient.dart';
 import 'package:owen_wilson/screens/wow.dart';
 
 class RandomForm extends StatefulWidget {
-  final TextEditingController? text;
-  const RandomForm({Key? key, this.text}) : super(key: key);
+  final TextEditingController? text = TextEditingController();
+  RandomForm({Key? key}) : super(key: key);
 
   @override
   State<RandomForm> createState() => _RandomFormState();
@@ -29,15 +29,20 @@ class _RandomFormState extends State<RandomForm> {
       children: [
         TextField(
           decoration: const InputDecoration(border: OutlineInputBorder()),
-          maxLength: 2,
+          maxLength: 1,
           keyboardType: TextInputType.number,
           controller: widget.text,
         ),
         ScreenButtonComponent(
           onPressed: () async {
             // wow.random();
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (builder) => const WowScreen()));
+            // debugPrint(widget.text?.text);
+            if (widget.text!.text.isNotEmpty) {
+              // WowWebclient().random(resultsLength: widget.text!.text);
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (builder) =>
+                      WowScreen(resultsLength: widget.text!.text)));
+            }
           },
           title: 'Random',
         )
