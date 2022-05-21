@@ -16,19 +16,14 @@ class OptionScreen extends StatefulWidget {
 }
 
 class _OptionScreenState extends State<OptionScreen> {
-  // List<dynamic> selected = List.empty(growable: true);
-
   void _setSelectedButton(Widget value) async {
     setState(() {
       widget.selected = value;
-
-      // debugPrint('selected: $selected');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // widget._wow.oneRandom().then((value) => value.first.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -1,11 +1,21 @@
-// ignore_for_file: prefer_const_constructors, unused_field, non_constant_identifier_names
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:owen_wilson/screens/home.dart';
+import 'package:owen_wilson/models/logged_user.dart';
+import 'package:owen_wilson/screens/signin.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => LoggedUser(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -18,18 +28,18 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Color.fromARGB(255, 230, 150, 0)));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Color.fromARGB(255, 230, 150, 0)));
     return MaterialApp(
       theme: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(Color.fromARGB(255, 230, 150, 0)),
+              backgroundColor: MaterialStateProperty.all(
+                  const Color.fromARGB(255, 230, 150, 0)),
             ),
           ),
           fontFamily: 'Nunito',
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             headline1: TextStyle(
               fontFamily: 'RedRose',
               color: Colors.white,
@@ -56,7 +66,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               fontWeight: FontWeight.bold,
             ),
           ),
-          colorScheme: ColorScheme(
+          colorScheme: const ColorScheme(
               brightness: Brightness.light,
               primary: Color.fromARGB(255, 230, 150, 0),
               onPrimary: Colors.white,
@@ -68,7 +78,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               onBackground: Colors.black,
               surface: Color.fromARGB(255, 255, 236, 207),
               onSurface: Colors.black)),
-      home: HomePage(),
+      home: SignInScreen(),
     );
   }
 }

@@ -23,9 +23,6 @@ class _WowScreenState extends State<WowScreen> {
 
           case ConnectionState.waiting:
             return const _DefaultReturn(loading: true);
-          // return const Scaffold(
-          //   body: Center(child: CircularProgressIndicator()),
-          // );
 
           case ConnectionState.active:
             break;

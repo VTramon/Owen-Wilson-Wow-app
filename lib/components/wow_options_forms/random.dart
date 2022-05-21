@@ -14,30 +14,21 @@ class RandomForm extends StatefulWidget {
 class _RandomFormState extends State<RandomForm> {
   final WowWebclient wow = WowWebclient();
 
-  // Future<List<dynamic>> setData() async {
-  //   final response = await wow.random();
-
-  //   List apiData = response;
-  //   return apiData;
-  //   // widget.apiData = response.first;
-  //   // return response.first;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextField(
-          decoration: const InputDecoration(border: OutlineInputBorder()),
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: '1',
+          ),
           maxLength: 1,
           keyboardType: TextInputType.number,
           controller: widget.text,
         ),
         ScreenButtonComponent(
           onPressed: () async {
-            // wow.random();
-            // debugPrint(widget.text?.text);
-            // WowWebclient().random(resultsLength: widget.text!.text);
             Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
               if (widget.text!.text.isNotEmpty) {
                 return WowScreen(resultsLength: widget.text!.text);
