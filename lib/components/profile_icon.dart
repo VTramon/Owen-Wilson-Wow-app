@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owen_wilson/firebase/authentication.dart';
 import 'package:owen_wilson/models/logged_user.dart';
 import 'package:provider/provider.dart';
 
@@ -20,8 +21,14 @@ class ProfileIcon extends StatelessWidget {
                 _selectedMenu = item.toString();
               },
               itemBuilder: (BuildContext context) => [
-                const PopupMenuItem(
-                  child: Text('Logout'),
+                PopupMenuItem(
+                  onTap: () {
+                    debugPrint('test');
+                    Navigator.of(context).pop();
+                    Authentication.SignOutGoogle();
+                    LoggedUser().signOut();
+                  },
+                  child: const Text('Logout'),
                   value: 'value',
                 ),
               ],
