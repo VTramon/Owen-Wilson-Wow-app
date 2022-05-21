@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/components/buttons/screen_button.dart';
+import 'package:owen_wilson/components/profile_icon.dart';
 import 'package:owen_wilson/components/text_card.dart';
 import 'package:owen_wilson/screens/options.dart';
 
@@ -15,20 +16,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // appBar: AppBar(
-        //   // elevation: 10.0,
-        //   // backgroundColor: Theme.of(context).colorScheme.primary,
-        //   toolbarHeight: 55,
-        //   shadowColor: Theme.of(context).colorScheme.primary,
-        //   // foregroundColor: Colors.transparent,
-        //   // shape: RoundedRectangleBorder(
-        //   //   borderRadius: BorderRadius.only(
-        //   //     bottomLeft: Radius.circular(62.0),
-        //   //   ),
-        //   // ),
-        // ),
-        body: _HomeBody());
+    return WillPopScope(
+        child: Scaffold(
+            appBar: AppBar(
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: ProfileIcon(),
+                )
+              ],
+              automaticallyImplyLeading: false,
+              elevation: 0,
+            ),
+            body: _HomeBody()),
+        onWillPop: () async => false);
   }
 }
 
