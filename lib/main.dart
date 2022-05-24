@@ -1,21 +1,39 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:owen_wilson/models/logged_user.dart';
+import 'package:owen_wilson/screens/home.dart';
+import 'package:owen_wilson/screens/options.dart';
 import 'package:owen_wilson/screens/signin.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => LoggedUser(),
-      child: const MyApp(),
-    ),
-  );
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+
+    if (kDebugMode) {
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    } else {
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
+    }
+
+    runApp(
+      ChangeNotifierProvider(
+        create: (context) => LoggedUser(),
+        child: const MyApp(),
+      ),
+    );
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
 class MyApp extends StatefulWidget {
@@ -31,6 +49,11 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Color.fromARGB(255, 230, 150, 0)));
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/home': (context) => const HomePage(),
+        '/options': (context) => OptionScreen(),
+      },
       theme: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(

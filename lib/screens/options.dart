@@ -30,6 +30,11 @@ class _OptionScreenState extends State<OptionScreen> {
           'WOW',
           style: Theme.of(context).textTheme.headline1,
         ),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('/home');
+            },
+            child: Icon(Icons.arrow_back)),
       ),
       body: ListView(
         children: [

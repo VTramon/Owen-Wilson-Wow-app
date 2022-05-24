@@ -1,4 +1,6 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:owen_wilson/components/error_message.dart';
 import 'package:owen_wilson/http/webclients/wow_webclient.dart';
 import 'package:owen_wilson/models/api.dart';
 
@@ -13,10 +15,40 @@ class WowScreen extends StatefulWidget {
 class _WowScreenState extends State<WowScreen> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: WowWebclient().random(resultsLength: widget.resultsLength),
+    return Scaffold(
+        body: FutureBuilder(
+      future:
+          WowWebclient().random(resultsLength: widget.resultsLength).catchError(
+        (error) {
+          if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+            FirebaseCrashlytics.instance
+                .setCustomKey('exception', error.toString());
+
+            FirebaseCrashlytics.instance
+                .setCustomKey('http_code', error.statusCode);
+
+            FirebaseCrashlytics.instance.recordError(error, null);
+          }
+
+          // Future(() {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return ErrorMessageCard(errorMessage: error.message);
+            },
+          );
+          return error.message;
+          // }
+          // );
+        },
+      ),
       builder: (BuildContext context, AsyncSnapshot<List<Api>> snapshot) {
         final data = snapshot.data;
+
+        if (snapshot.hasError) {
+          return const _DefaultReturn(loading: false);
+        }
+
         switch (snapshot.connectionState) {
           case ConnectionState.none:
             break;
@@ -35,18 +67,25 @@ class _WowScreenState extends State<WowScreen> {
             }
         }
 
-        return const _DefaultReturn(
-          loading: false,
-        );
+        return const _DefaultReturn(loading: true);
       },
-    );
+    ));
   }
 }
 
-class _DefaultReturn extends StatelessWidget {
+class _DefaultReturn extends StatefulWidget {
   final bool loading;
-  const _DefaultReturn({Key? key, required this.loading}) : super(key: key);
+  final bool? onError;
+  final String? error;
+  const _DefaultReturn(
+      {Key? key, required this.loading, this.onError, this.error})
+      : super(key: key);
 
+  @override
+  State<_DefaultReturn> createState() => _DefaultReturnState();
+}
+
+class _DefaultReturnState extends State<_DefaultReturn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,21 +93,13 @@ class _DefaultReturn extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Visibility(
               child: const CircularProgressIndicator(),
-              visible: loading == true,
+              visible: widget.loading == true,
             ),
             Visibility(
-              visible: loading == false,
-              child: const Text(
-                'Unknown error',
-                style: TextStyle(
-                    backgroundColor: Colors.transparent, color: Colors.black),
-              ),
-            ),
-            Visibility(
-              visible: loading == false,
+              visible: widget.loading == false,
               child: TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -90,7 +121,9 @@ class SingleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('${data.movie}')),
+      appBar: AppBar(
+        title: Text('${data.movie}'),
+      ),
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
@@ -135,7 +168,6 @@ class SingleContent extends StatelessWidget {
 
 class ListContent extends StatelessWidget {
   final List<Api>? data;
-  // final loading;
   const ListContent(this.data, {Key? key}) : super(key: key);
 
   @override

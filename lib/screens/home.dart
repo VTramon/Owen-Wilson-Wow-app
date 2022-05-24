@@ -17,19 +17,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        child: Scaffold(
-            appBar: AppBar(
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: ProfileIcon(),
-                )
-              ],
-              automaticallyImplyLeading: false,
-              elevation: 0,
-            ),
-            body: _HomeBody()),
-        onWillPop: () async => false);
+      child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: ProfileIcon(),
+              )
+            ],
+            automaticallyImplyLeading: false,
+            elevation: 0,
+          ),
+          body: _HomeBody()),
+      onWillPop: () async => false,
+    );
   }
 }
 

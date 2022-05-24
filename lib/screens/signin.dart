@@ -68,17 +68,13 @@ class GoogleSignInButton extends StatelessWidget {
       child: OutlinedButton(
           onPressed: () async {
             user = await Authentication.signInWithGoogle(context: context);
-            // debugPrint(user.toString());
-            // LoggedUser().signIn(user);
             Provider.of<LoggedUser>(context, listen: false).signIn(user);
 
-            final push = await Navigator.of(context).push(
+            await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const HomePage(),
               ),
             );
-
-            debugPrint(push);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

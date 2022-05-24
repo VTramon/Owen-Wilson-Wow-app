@@ -53,8 +53,7 @@ class Authentication {
     return user;
   }
 
-  static void SignOutGoogle() {
-    final signOut = GoogleSignIn().signOut();
-    debugPrint(signOut.toString());
+  static void signOutGoogle() {
+    GoogleSignIn().signOut();
   }
 }

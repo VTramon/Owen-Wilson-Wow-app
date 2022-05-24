@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/components/buttons/screen_button.dart';
-import 'package:owen_wilson/http/webclients/wow_webclient.dart';
 import 'package:owen_wilson/screens/wow.dart';
 
 class RandomForm extends StatefulWidget {
@@ -12,8 +11,6 @@ class RandomForm extends StatefulWidget {
 }
 
 class _RandomFormState extends State<RandomForm> {
-  final WowWebclient wow = WowWebclient();
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,6 +26,14 @@ class _RandomFormState extends State<RandomForm> {
         ),
         ScreenButtonComponent(
           onPressed: () async {
+            // showDialog(
+            //     context: context,
+            //     builder: (builder) {
+            //       return const ErrorMessageCard(
+            //         errorMessage: 'error.message',
+            //         statusCode: 400,
+            //       );
+            //     });
             Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
               if (widget.text!.text.isNotEmpty) {
                 return WowScreen(resultsLength: widget.text!.text);

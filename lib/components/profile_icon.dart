@@ -23,9 +23,8 @@ class ProfileIcon extends StatelessWidget {
               itemBuilder: (BuildContext context) => [
                 PopupMenuItem(
                   onTap: () {
-                    debugPrint('test');
                     Navigator.of(context).pop();
-                    Authentication.SignOutGoogle();
+                    Authentication.signOutGoogle();
                     LoggedUser().signOut();
                   },
                   child: const Text('Logout'),
