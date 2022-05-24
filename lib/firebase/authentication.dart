@@ -1,24 +1,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
-  static Future<User?> signInWithGoogle({required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
+
+  static Future<User?> signInAnonymously() async {
+    User? user;
+    UserCredential? response = await auth.signInAnonymously();
+
+    try {
+      user = response.user;
+      return user;
+    } catch (error) {
+      if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+        FirebaseCrashlytics.instance
+            .setCustomKey('exception', error.toString());
+
+        FirebaseCrashlytics.instance.recordError(error, null);
+      }
+      throw Exception(error);
+    }
+  }
+
+  static Future<User?> signInWithGoogle() async {
     User? user;
 
-    // if (kIsWeb) {
-    //   GoogleAuthProvider authProvider = GoogleAuthProvider();
-
-    //   try {
-    //     final UserCredential userCredential =
-    //         await auth.signInWithPopup(authProvider);
-
-    //     user = userCredential.user;
-    //   } catch (e) {
-    //     debugPrint(e.toString());
-    //   }
-    // } else {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     final GoogleSignInAccount? googleSignInAccount =
@@ -44,11 +51,17 @@ class Authentication {
         } else if (e.code == 'invalid-credential') {
           throw Exception(e.message);
         }
-      } catch (e) {
-        throw Exception('Unknown error');
+      } catch (error) {
+        if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+          FirebaseCrashlytics.instance
+              .setCustomKey('exception', error.toString());
+
+          FirebaseCrashlytics.instance.recordError(error, null);
+        }
+
+        throw Exception(error);
       }
     }
-    // }
 
     return user;
   }

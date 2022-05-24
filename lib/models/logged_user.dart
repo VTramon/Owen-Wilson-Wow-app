@@ -14,10 +14,20 @@ class LoggedUser extends ChangeNotifier {
     displayName = user?.displayName;
     uid = user?.uid;
     logged = true;
-    photoUrl = user?.photoURL;
+    if (user!.photoURL != null) {
+      photoUrl = user.photoURL;
+    } else {
+      photoUrl =
+          'https://upload.wikimedia.org/wikipedia/commons/b/b7/Owen_Wilson_Cannes_2011_%28cropped%29.jpg';
+    }
 
-    final String userIdentifier = '${user?.uid}${user?.displayName}';
-    FirebaseCrashlytics.instance.setUserIdentifier(userIdentifier);
+    if (user.isAnonymous == true) {
+      final String userIdentifier = 'anonymous${user.uid}';
+      FirebaseCrashlytics.instance.setUserIdentifier(userIdentifier);
+    } else {
+      final String userIdentifier = '${user.uid}${user.displayName}';
+      FirebaseCrashlytics.instance.setUserIdentifier(userIdentifier);
+    }
 
     notifyListeners();
   }

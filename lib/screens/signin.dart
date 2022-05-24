@@ -9,26 +9,25 @@ import 'package:provider/provider.dart';
 final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
 class SignInScreen extends StatefulWidget {
-  late GoogleSignInAccount? _currentUser;
-  SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  // late final User user;
+  GoogleSignInAccount? _currentUser;
 
-  @override
-  void initState() {
-    _googleSignIn.onCurrentUserChanged.listen((account) {
-      setState(() {
-        widget._currentUser = account!;
-      });
-    });
-    _googleSignIn.signInSilently();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _googleSignIn.onCurrentUserChanged.listen((account) {
+  //     setState(() {
+  //       _currentUser = account!;
+  //     });
+  //   });
+  //   _googleSignIn.signInSilently();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +41,16 @@ class _SignInScreenState extends State<SignInScreen> {
             height: 200.0,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(top: 160.0, left: 16.0, right: 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 GoogleSignInButton(),
+                Padding(
+                  padding: const EdgeInsets.all(64.0),
+                  child: AnonymousSignInButton(),
+                ),
               ],
             ),
           )
@@ -58,41 +61,71 @@ class _SignInScreenState extends State<SignInScreen> {
 }
 
 class GoogleSignInButton extends StatelessWidget {
-  User? user;
+  late User? user;
   GoogleSignInButton({Key? key, this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 160.0),
-      child: OutlinedButton(
-          onPressed: () async {
-            user = await Authentication.signInWithGoogle(context: context);
-            Provider.of<LoggedUser>(context, listen: false).signIn(user);
+    return OutlinedButton(
+        onPressed: () async {
+          user = await Authentication.signInWithGoogle();
+          Provider.of<LoggedUser>(context, listen: false).signIn(user);
 
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const HomePage(),
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Image.asset(
+                'images/google.png',
+                width: 40,
+                height: 40,
               ),
-            );
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Image.asset(
-                  'images/google.png',
-                  width: 40,
-                  height: 40,
-                ),
+            ),
+            const Text(
+              'Sign in with Google',
+            )
+          ],
+        ));
+  }
+}
+
+class AnonymousSignInButton extends StatelessWidget {
+  late User? user;
+  AnonymousSignInButton({Key? key, this.user}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+        onPressed: () async {
+          user = await Authentication.signInAnonymously();
+          Provider.of<LoggedUser>(context, listen: false).signIn(user);
+
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            Padding(padding: EdgeInsets.all(16.0), child: Icon(Icons.person)),
+            Text(
+              'Anonymous',
+              style: TextStyle(
+                fontSize: 16.0,
               ),
-              const Text(
-                'Sign in with Google',
-              )
-            ],
-          )),
-    );
+            )
+          ],
+        ));
   }
 }
