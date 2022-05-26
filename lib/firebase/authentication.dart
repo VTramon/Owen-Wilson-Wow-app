@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
-  static FirebaseAuth auth = FirebaseAuth.instance;
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   static Future<User?> signInAnonymously() async {
     User? user;
-    UserCredential? response = await auth.signInAnonymously();
+    UserCredential? response = await _auth.signInAnonymously();
 
     try {
       user = response.user;
@@ -42,7 +43,7 @@ class Authentication {
 
       try {
         final UserCredential userCredential =
-            await auth.signInWithCredential(credential);
+            await _auth.signInWithCredential(credential);
 
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
@@ -66,7 +67,12 @@ class Authentication {
     return user;
   }
 
-  static void signOutGoogle() {
-    GoogleSignIn().signOut();
+  static void signOut() {
+    final google = GoogleSignIn().signOut();
+    final anon = _auth.signOut();
+
+    debugPrint('signing out');
+    debugPrint('google: $google');
+    debugPrint('anon: $anon');
   }
 }

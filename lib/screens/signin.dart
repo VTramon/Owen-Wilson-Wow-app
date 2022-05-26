@@ -1,12 +1,11 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:owen_wilson/firebase/authentication.dart';
 import 'package:owen_wilson/models/logged_user.dart';
 import 'package:owen_wilson/screens/home.dart';
 import 'package:provider/provider.dart';
-
-final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -16,8 +15,6 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  GoogleSignInAccount? _currentUser;
-
   // @override
   // void initState() {
   //   _googleSignIn.onCurrentUserChanged.listen((account) {
@@ -33,28 +30,32 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: ListView(
-        children: [
-          Image.asset(
-            'images/wow.png',
-            width: 200.0,
-            height: 200.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 160.0, left: 16.0, right: 16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                GoogleSignInButton(),
-                Padding(
-                  padding: const EdgeInsets.all(64.0),
-                  child: AnonymousSignInButton(),
-                ),
-              ],
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: ListView(
+          children: [
+            Image.asset(
+              'images/wow.png',
+              width: 200.0,
+              height: 200.0,
             ),
-          )
-        ],
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 160.0, left: 16.0, right: 16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  GoogleSignInButton(),
+                  Padding(
+                    padding: const EdgeInsets.all(64.0),
+                    child: AnonymousSignInButton(),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

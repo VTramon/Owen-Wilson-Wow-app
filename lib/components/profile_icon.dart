@@ -1,14 +1,17 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/firebase/authentication.dart';
 import 'package:owen_wilson/models/logged_user.dart';
 import 'package:provider/provider.dart';
 
 class ProfileIcon extends StatelessWidget {
-  String _selectedMenu = '';
-  ProfileIcon({Key? key}) : super(key: key);
+  const ProfileIcon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String selectedMenu = '';
+
     return Consumer<LoggedUser>(
         builder: ((context, value, child) => PopupMenuButton(
               child: Padding(
@@ -18,14 +21,14 @@ class ProfileIcon extends StatelessWidget {
                 ),
               ),
               onSelected: (item) {
-                _selectedMenu = item.toString();
+                selectedMenu = item.toString();
               },
               itemBuilder: (BuildContext context) => [
                 PopupMenuItem(
                   onTap: () {
-                    Navigator.of(context).pop();
-                    Authentication.signOutGoogle();
+                    Authentication.signOut();
                     LoggedUser().signOut();
+                    Navigator.of(context).pushNamed('/signIn');
                   },
                   child: const Text('Logout'),
                   value: 'value',

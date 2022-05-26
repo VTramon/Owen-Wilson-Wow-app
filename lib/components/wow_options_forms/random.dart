@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owen_wilson/components/bloc_container.dart';
 import 'package:owen_wilson/components/buttons/screen_button.dart';
 import 'package:owen_wilson/screens/wow.dart';
 
@@ -26,20 +27,15 @@ class _RandomFormState extends State<RandomForm> {
         ),
         ScreenButtonComponent(
           onPressed: () async {
-            // showDialog(
-            //     context: context,
-            //     builder: (builder) {
-            //       return const ErrorMessageCard(
-            //         errorMessage: 'error.message',
-            //         statusCode: 400,
-            //       );
-            //     });
-            Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
-              if (widget.text!.text.isNotEmpty) {
-                return WowScreen(resultsLength: widget.text!.text);
-              }
-              return const WowScreen();
-            }));
+            if (widget.text!.text.isNotEmpty) {
+              debugPrint('List');
+              push(context, WowContainer(resultsLength: widget.text!.text));
+            } else {
+              debugPrint('Single');
+              push(context, const WowContainer());
+              // Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (builder) => const WowContainer()));
+            }
           },
           title: 'Random',
         )

@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     return MaterialApp(
       initialRoute: '/',
       routes: {
+        '/signIn': (context) => const SignInScreen(),
         '/home': (context) => const HomePage(),
         '/options': (context) => OptionScreen(),
       },
@@ -101,7 +102,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               onBackground: Colors.black,
               surface: Color.fromARGB(255, 255, 236, 207),
               onSurface: Colors.black)),
-      home: SignInScreen(),
+      home: const SignInScreen(),
     );
   }
 }
