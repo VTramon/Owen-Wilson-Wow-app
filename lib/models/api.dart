@@ -73,7 +73,6 @@ class Video {
 
   Video({this.high, this.medium, this.low, this.veryLow});
 
-  // Api.fromJson(Map<String, dynamic> json) :
   factory Video.fromJson(Map<String, dynamic> json) => Video(
       high: json['1080p'],
       medium: json['720p'],

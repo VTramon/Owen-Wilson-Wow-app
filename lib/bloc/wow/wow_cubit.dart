@@ -8,18 +8,12 @@ class WowCubit extends Cubit<WowContentState> {
   WowCubit() : super(const LoadingWowContentState());
 
   showContent(BuildContext context, {String? resultsLength}) async {
-    debugPrint('showContent');
     WowWebclient().random(resultsLength: resultsLength).then((List<Api> value) {
-      debugPrint('runtime type: ' + value.runtimeType.toString());
       emit(LoadedWowContentState(value));
     }).catchError(
       (error) {
         emit(ErrorWowContentState(error));
       },
     );
-  }
-
-  void test() {
-    debugPrint('test');
   }
 }

@@ -12,10 +12,8 @@ final InterceptedClient client = InterceptedClient.build(
 Uri baseUrl({required String path, String? resultsLength}) {
   if (resultsLength != null && resultsLength != '1') {
     return Uri.parse(
-        // 'https://owen-wilson-wow-api.herokuapp.com');
         'https://owen-wilson-wow-api.herokuapp.com/wows/$path?results=$resultsLength');
   } else {
-    // return Uri.parse('https://owen-wilson-.com/wows/tupicaco/$path');
     return Uri.parse('https://owen-wilson-wow-api.herokuapp.com/wows/$path');
   }
 }

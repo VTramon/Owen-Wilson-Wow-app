@@ -15,16 +15,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  // @override
-  // void initState() {
-  //   _googleSignIn.onCurrentUserChanged.listen((account) {
-  //     setState(() {
-  //       _currentUser = account!;
-  //     });
-  //   });
-  //   _googleSignIn.signInSilently();
-  //   super.initState();
-  // }
+  User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +37,42 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  GoogleSignInButton(),
+                  SignInButton(
+                    onPressed: () async {
+                      user = await Authentication.signInWithGoogle();
+                      Provider.of<LoggedUser>(context, listen: false)
+                          .signIn(user);
+
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(),
+                        ),
+                      );
+                    },
+                    text: 'Sign in with Google',
+                    image: Image.asset(
+                      'images/google.png',
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(64.0),
-                    child: AnonymousSignInButton(),
+                    child: SignInButton(
+                        onPressed: () async {
+                          user = await Authentication.signInAnonymously();
+                          Provider.of<LoggedUser>(context, listen: false)
+                              .signIn(user);
+
+                          await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(),
+                            ),
+                          );
+                        },
+                        text: 'Anonymous',
+                        icon: const Icon(Icons.person)),
+                    // child: AnonymousSignInButton(),
                   ),
                 ],
               ),
@@ -61,68 +84,33 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 }
 
-class GoogleSignInButton extends StatelessWidget {
-  late User? user;
-  GoogleSignInButton({Key? key, this.user}) : super(key: key);
+class SignInButton extends StatelessWidget {
+  // late User? user;
+  final void Function() onPressed;
+  final String text;
+  final Icon? icon;
+  final Image? image;
+  SignInButton(
+      {Key? key,
+      // this.user,
+      required this.onPressed,
+      required this.text,
+      this.icon,
+      this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-        onPressed: () async {
-          user = await Authentication.signInWithGoogle();
-          Provider.of<LoggedUser>(context, listen: false).signIn(user);
-
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const HomePage(),
-            ),
-          );
-        },
+        onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.asset(
-                'images/google.png',
-                width: 40,
-                height: 40,
-              ),
-            ),
-            const Text(
-              'Sign in with Google',
-            )
-          ],
-        ));
-  }
-}
-
-class AnonymousSignInButton extends StatelessWidget {
-  late User? user;
-  AnonymousSignInButton({Key? key, this.user}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-        onPressed: () async {
-          user = await Authentication.signInAnonymously();
-          Provider.of<LoggedUser>(context, listen: false).signIn(user);
-
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const HomePage(),
-            ),
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            Padding(padding: EdgeInsets.all(16.0), child: Icon(Icons.person)),
+            Padding(padding: const EdgeInsets.all(16.0), child: image ?? icon),
             Text(
-              'Anonymous',
-              style: TextStyle(
+              text,
+              style: const TextStyle(
                 fontSize: 16.0,
               ),
             )

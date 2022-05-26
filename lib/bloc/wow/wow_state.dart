@@ -8,10 +8,6 @@ class LoadingWowContentState extends WowContentState {
   const LoadingWowContentState();
 }
 
-// class InitWowContentState extends WowContentState {
-//   const InitWowContentState();
-// }
-
 class LoadedWowContentState extends WowContentState {
   final List<Api> content;
   const LoadedWowContentState(this.content);

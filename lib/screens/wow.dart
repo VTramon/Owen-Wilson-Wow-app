@@ -5,7 +5,8 @@ import 'package:owen_wilson/bloc/wow/wow_cubit.dart';
 import 'package:owen_wilson/bloc/wow/wow_state.dart';
 import 'package:owen_wilson/components/bloc_container.dart';
 import 'package:owen_wilson/components/error_message.dart';
-import 'package:owen_wilson/http/webclients/wow_webclient.dart';
+import 'package:owen_wilson/components/wow_views/list_content_view.dart';
+import 'package:owen_wilson/components/wow_views/single_content_view.dart';
 import 'package:owen_wilson/models/api.dart';
 
 class WowContainer extends BlocContainer {
@@ -46,7 +47,6 @@ class WowContentView extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<WowCubit, WowContentState>(
         builder: (BuildContext context, WowContentState state) {
-          debugPrint(state.runtimeType.toString());
           if (state is ErrorWowContentState) {
             final error = state.error;
 
@@ -65,85 +65,15 @@ class WowContentView extends StatelessWidget {
           if (state is LoadedWowContentState) {
             final List<Api> content = state.content;
             if (content.length == 1) {
-              return SingleContent(data: content.first);
+              return SingleContentView(data: content.first);
             }
-            return ListContent(content);
+            return ListContentView(content);
           }
 
           return const _DefaultReturn(loading: true);
         },
       ),
     );
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class WowScreen extends StatefulWidget {
-  final String? resultsLength;
-  const WowScreen({Key? key, this.resultsLength = '1'}) : super(key: key);
-
-  @override
-  State<WowScreen> createState() => _WowScreenState();
-}
-
-class _WowScreenState extends State<WowScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: FutureBuilder(
-      future:
-          WowWebclient().random(resultsLength: widget.resultsLength).catchError(
-        (error) {
-          if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
-            FirebaseCrashlytics.instance
-                .setCustomKey('exception', error.toString());
-
-            FirebaseCrashlytics.instance
-                .setCustomKey('http_code', error.statusCode);
-
-            FirebaseCrashlytics.instance.recordError(error, null);
-          }
-
-          showDialog(
-            context: context,
-            builder: (context) {
-              return ErrorMessageCard(errorMessage: error.message);
-            },
-          );
-          return error.message;
-        },
-      ),
-      builder: (BuildContext context, AsyncSnapshot<List<Api>> snapshot) {
-        final data = snapshot.data;
-
-        if (snapshot.hasError) {
-          return const _DefaultReturn(loading: false);
-        }
-
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-            break;
-
-          case ConnectionState.waiting:
-            return const _DefaultReturn(loading: true);
-
-          case ConnectionState.active:
-            break;
-
-          case ConnectionState.done:
-            if (data!.length > 1) {
-              return ListContent(data);
-            } else {
-              return SingleContent(data: data.first);
-            }
-        }
-
-        return const _DefaultReturn(loading: true);
-      },
-    ));
   }
 }
 
@@ -183,109 +113,6 @@ class _DefaultReturnState extends State<_DefaultReturn> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class SingleContent extends StatelessWidget {
-  final Api data;
-  const SingleContent({Key? key, required this.data}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${data.movie}'),
-      ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 24.0),
-            child: Image.network('${data.poster}'),
-          ),
-          ListTile(
-            title: Text(
-              data.year.toString(),
-              style: const TextStyle(fontSize: 32.0),
-            ),
-          ),
-          ListBody(
-            children: [
-              ListTile(
-                title: Text('Character: ${data.character}'),
-              ),
-              ListTile(
-                title: Text('Director: ${data.director}'),
-              ),
-              ListTile(
-                title: Text('Release date: ${data.release_date}'),
-              ),
-              ListTile(
-                title: Text('Movie duration: ${data.movie_duration}'),
-              ),
-              ListTile(
-                title: Text('Number of "wows": ${data.total_wows_in_movie}'),
-              ),
-              ListTile(
-                title: Text('Movie duration: ${data.movie_duration}'),
-              ),
-              // VideoComponent(videoUrl: data!.video!.medium.toString())
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ListContent extends StatelessWidget {
-  final List<Api> data;
-  const ListContent(this.data, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Random List'),
-      ),
-      body: ListView.builder(
-        itemCount: data.length,
-        itemBuilder: (BuildContext context, index) {
-          final Api result = data[index];
-          return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (builder) => SingleContent(
-                        data: result,
-                      )));
-            },
-            child: Card(
-              child: Row(
-                children: [
-                  Image.network(
-                    result.poster.toString(),
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    height: 250,
-                  ),
-                  SizedBox(
-                    width: 150,
-                    child: ListTile(
-                      title: Text(result.movie.toString()),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
       ),
     );
   }

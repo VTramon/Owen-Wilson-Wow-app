@@ -7,7 +7,6 @@ class WowButton extends StatefulWidget {
   final String title;
   final void Function()? onPressed;
   final bool? selected;
-  // final Function callback;
   OptionsModel? option = OptionsModel();
 
   WowButton({
@@ -16,24 +15,11 @@ class WowButton extends StatefulWidget {
     required this.title,
     this.onPressed,
     this.selected,
-    // required this.callback,
-    // required this.updateState,
   }) : super(key: key);
 
   @override
   State<WowButton> createState() => _WowButtonState();
 }
-
-// class SetState {}
-
-// class _WowButtonState extends State<WowButton> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-
-//     );
-//   }
-// }
 
 class _WowButtonState extends State<WowButton> {
   @override
@@ -49,9 +35,7 @@ class _WowButtonState extends State<WowButton> {
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.5),
-                // spreadRadius: 0.1,
                 blurRadius: 5,
-                // offset: Offset(0, 3),
               ),
             ],
           ),

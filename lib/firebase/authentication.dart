@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
@@ -68,11 +67,7 @@ class Authentication {
   }
 
   static void signOut() {
-    final google = GoogleSignIn().signOut();
-    final anon = _auth.signOut();
-
-    debugPrint('signing out');
-    debugPrint('google: $google');
-    debugPrint('anon: $anon');
+    GoogleSignIn().signOut();
+    _auth.signOut();
   }
 }
