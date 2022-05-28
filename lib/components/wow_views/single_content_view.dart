@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owen_wilson/components/video_viewer.dart';
 import 'package:owen_wilson/models/api.dart';
 
 class SingleContentView extends StatelessWidget {
@@ -42,9 +43,12 @@ class SingleContentView extends StatelessWidget {
                 title: Text('Number of "wows": ${data.total_wows_in_movie}'),
               ),
               ListTile(
-                title: Text('Movie duration: ${data.movie_duration}'),
+                title: Text('Current "wow": ${data.current_wow_in_movie}'),
               ),
-              // VideoComponent(videoUrl: data!.video!.medium.toString())
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: VideoComponent(api: data),
+              )
             ],
           )
         ],

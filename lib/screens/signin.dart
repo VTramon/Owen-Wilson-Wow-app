@@ -90,7 +90,7 @@ class SignInButton extends StatelessWidget {
   final String text;
   final Icon? icon;
   final Image? image;
-  SignInButton(
+  const SignInButton(
       {Key? key,
       // this.user,
       required this.onPressed,

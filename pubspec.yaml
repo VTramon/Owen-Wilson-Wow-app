@@ -31,7 +31,6 @@ dependencies:
     sdk: flutter
   http:
   http_interceptor:
-  video_player:
   firebase_core:
   firebase_auth:
   google_sign_in:
@@ -39,10 +38,13 @@ dependencies:
   giffy_dialog:
   firebase_crashlytics:
   flutter_bloc:
+  video_viewer:
+  # video_player:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  wakelock_web: ^0.4.0
 
 dev_dependencies:
   flutter_test:
