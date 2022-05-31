@@ -1,0 +1,9 @@
+{
+  "name": "owen_wilson_docker",
+  "context": "..",
+  "dockerFile": "../Dockerfile",
+  "remoteUser": "developer",
+  "mounts": ["source=/dev/bus/usb,target=/dev/bus/usb,type=bind"],
+  "runArgs": ["--privileged"],
+  "extensions": ["Dart-Code.flutter", "Dart-Code.dart-code"]
+}
