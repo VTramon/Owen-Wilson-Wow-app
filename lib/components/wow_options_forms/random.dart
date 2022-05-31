@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/components/bloc_container.dart';
 import 'package:owen_wilson/components/buttons/screen_button.dart';
+import 'package:owen_wilson/components/random_input_text.dart';
 import 'package:owen_wilson/screens/wow.dart';
 
 class RandomForm extends StatefulWidget {
@@ -16,15 +17,7 @@ class _RandomFormState extends State<RandomForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: '1',
-          ),
-          maxLength: 1,
-          keyboardType: TextInputType.number,
-          controller: widget.text,
-        ),
+        RandomWowInputText(maxLength: 1, text: widget.text),
         ScreenButtonComponent(
           onPressed: () async {
             if (widget.text!.text.isNotEmpty) {

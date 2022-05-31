@@ -43,7 +43,12 @@ class _WowButtonState extends State<WowButton> {
             onPressed: widget.onPressed,
             child: Text(
               widget.title,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.normal,
+              ),
             ),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(

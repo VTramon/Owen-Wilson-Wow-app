@@ -79,11 +79,7 @@ class WowContentView extends StatelessWidget {
 
 class _DefaultReturn extends StatefulWidget {
   final bool loading;
-  final bool? onError;
-  final String? error;
-  const _DefaultReturn(
-      {Key? key, required this.loading, this.onError, this.error})
-      : super(key: key);
+  const _DefaultReturn({Key? key, required this.loading}) : super(key: key);
 
   @override
   State<_DefaultReturn> createState() => _DefaultReturnState();

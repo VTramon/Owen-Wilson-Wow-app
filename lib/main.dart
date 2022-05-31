@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
             bodyText2: TextStyle(
               fontFamily: 'Nunito',
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 20.0,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,

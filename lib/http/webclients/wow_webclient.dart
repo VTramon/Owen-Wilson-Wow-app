@@ -16,10 +16,35 @@ class WowWebclient {
   }
 
   Future<List<Api>> random({String? resultsLength}) async {
-    await Future.delayed(const Duration(seconds: 2));
     final Response response =
-        await client.get(baseUrl(path: 'random', resultsLength: resultsLength));
+        await client.get(baseUrl(resultsLength: 'results=$resultsLength'));
 
+    return _clientReturn(response);
+  }
+
+  Future<List<Api>> byYear({String? year, String? resultsLength}) async {
+    final Response response = await client.get(
+        baseUrl(query: 'year=$year', resultsLength: 'results=$resultsLength'));
+
+    return _clientReturn(response);
+  }
+
+  Future<List<Api>> byMovie({String? movie, String? resultsLength}) async {
+    final Response response = await client.get(baseUrl(
+        query: 'movie=$movie', resultsLength: 'results=$resultsLength'));
+
+    return _clientReturn(response);
+  }
+
+  Future<List<Api>> byDirector(
+      {String? director, String? resultsLength}) async {
+    final Response response = await client.get(baseUrl(
+        query: 'director=$director', resultsLength: 'results=$resultsLength'));
+
+    return _clientReturn(response);
+  }
+
+  List<Api> _clientReturn(Response response) {
     if (response.statusCode == 200) {
       return parseRandom(response);
     } else {
