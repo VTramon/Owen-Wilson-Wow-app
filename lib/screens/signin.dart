@@ -19,65 +19,70 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: WillPopScope(
-        onWillPop: () async => false,
-        child: ListView(
-          children: [
-            Image.asset(
-              'images/wow.png',
-              width: 200.0,
-              height: 200.0,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 160.0, left: 16.0, right: 16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SignInButton(
-                    onPressed: () async {
-                      user = await Authentication.signInWithGoogle();
-                      Provider.of<LoggedUser>(context, listen: false)
-                          .signIn(user);
-
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ),
-                      );
-                    },
-                    text: 'Sign in with Google',
-                    image: Image.asset(
-                      'images/google.png',
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(64.0),
-                    child: SignInButton(
-                        onPressed: () async {
-                          user = await Authentication.signInAnonymously();
-                          Provider.of<LoggedUser>(context, listen: false)
-                              .signIn(user);
-
-                          await Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ),
-                          );
-                        },
-                        text: 'Anonymous',
-                        icon: const Icon(Icons.person)),
-                    // child: AnonymousSignInButton(),
-                  ),
-                ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+        ),
+        body: WillPopScope(
+          onWillPop: () async => false,
+          child: ListView(
+            children: [
+              Image.asset(
+                'images/wow.png',
+                width: 200.0,
+                height: 200.0,
               ),
-            )
-          ],
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 160.0, left: 16.0, right: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SignInButton(
+                      onPressed: () async {
+                        user = await Authentication.signInWithGoogle();
+                        Provider.of<LoggedUser>(context, listen: false)
+                            .signIn(user);
+
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
+                      },
+                      text: 'Sign in with Google',
+                      image: Image.asset(
+                        'images/google.png',
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(64.0),
+                      child: SignInButton(
+                          onPressed: () async {
+                            user = await Authentication.signInAnonymously();
+                            Provider.of<LoggedUser>(context, listen: false)
+                                .signIn(user);
+
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          },
+                          text: 'Anonymous',
+                          icon: const Icon(Icons.person)),
+                      // child: AnonymousSignInButton(),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

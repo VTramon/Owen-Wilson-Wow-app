@@ -61,6 +61,7 @@ class Authentication {
 
         throw Exception(error);
       }
+      return user;
     }
 
     return user;

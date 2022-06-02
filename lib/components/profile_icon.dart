@@ -21,16 +21,13 @@ class ProfileIcon extends StatelessWidget {
                 ),
               ),
               onSelected: (item) {
-                selectedMenu = item.toString();
+                Authentication.signOut();
+                LoggedUser().signOut();
+                Navigator.of(context).pushNamed('/signIn');
               },
               itemBuilder: (BuildContext context) => [
-                PopupMenuItem(
-                  onTap: () {
-                    Authentication.signOut();
-                    LoggedUser().signOut();
-                    Navigator.of(context).pushNamed('/signIn');
-                  },
-                  child: const Text('Logout'),
+                const PopupMenuItem(
+                  child: Text('Logout'),
                   value: 'value',
                 ),
               ],

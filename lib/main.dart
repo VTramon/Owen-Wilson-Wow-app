@@ -49,7 +49,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Color.fromARGB(255, 230, 150, 0)));
     return MaterialApp(
-      initialRoute: '/',
       routes: {
         '/signIn': (context) => const SignInScreen(),
         '/home': (context) => const HomePage(),
