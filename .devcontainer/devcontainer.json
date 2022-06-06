@@ -1,9 +1,13 @@
 {
-  "name": "owen_wilson_docker",
+  "name": "owen_wilson",
   "context": "..",
-  "dockerFile": "../Dockerfile",
-  "remoteUser": "developer",
+  "dockerFile": "./Dockerfile",
   "mounts": ["source=/dev/bus/usb,target=/dev/bus/usb,type=bind"],
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": null
+  },
   "runArgs": ["--privileged"],
-  "extensions": ["Dart-Code.flutter", "Dart-Code.dart-code"]
+  "extensions": ["Dart-Code.flutter", "Dart-Code.dart-code"],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/app,type=bind,consistency=delegated",
+  "workspaceFolder": "/workspace/app"
 }
