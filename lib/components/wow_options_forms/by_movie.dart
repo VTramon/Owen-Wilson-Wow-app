@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:owen_wilson/components/bloc_container.dart';
 import 'package:owen_wilson/components/buttons/screen_button.dart';
+import 'package:owen_wilson/components/custom_input_text.dart';
 import 'package:owen_wilson/components/random_input_text.dart';
 import 'package:owen_wilson/screens/wow.dart';
 
 class ByMovie extends StatefulWidget {
   final TextEditingController? resultLength = TextEditingController();
-  final TextEditingController? movie = TextEditingController();
-  ByMovie({Key? key}) : super(key: key);
+  // final TextEditingController? movie = TextEditingController();
+  String? movie;
+  ByMovie({Key? key, this.movie}) : super(key: key);
 
   @override
   State<ByMovie> createState() => _ByMovieState();
@@ -51,42 +52,34 @@ class _ByMovieState extends State<ByMovie> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          width: double.maxFinite,
-          child: Text(
-            'Movie',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        CustomInputText(
+            list: _movies,
+            title: 'Movie',
+            onSelect: (String value) {
+              debugPrint(value);
+              widget.movie = value;
+            }),
+        RandomWowInputText(
+          maxLength: 1,
+          text: widget.resultLength,
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 32.0),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(width: 1.0, color: Colors.black38)),
-            child: Autocomplete<String>(
-              optionsBuilder: (TextEditingValue textEditingValue) {
-                return _movies.where((String item) {
-                  return item.contains(textEditingValue.text.toLowerCase());
-                });
-              },
-            ),
-          ),
-        ),
-        RandomWowInputText(maxLength: 1, text: widget.resultLength),
         ScreenButtonComponent(
           onPressed: () async {
+            debugPrint(widget.movie);
             if (widget.resultLength!.text.isNotEmpty) {
-              push(context,
-                  WowContainer(resultsLength: widget.resultLength!.text));
+              push(
+                  context,
+                  WowContainer(
+                    resultsLength: widget.resultLength!.text,
+                    movie: widget.movie,
+                    content: 'byMovie',
+                  ));
             } else {
-              push(context, const WowContainer());
+              push(context,
+                  WowContainer(movie: widget.movie, content: 'byMovie'));
             }
           },
-          title: 'Random',
+          title: 'byMovie',
         )
       ],
     );

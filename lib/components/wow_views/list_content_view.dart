@@ -37,11 +37,22 @@ class ListContentView extends StatelessWidget {
                     },
                     height: 250,
                   ),
-                  SizedBox(
-                    width: 150,
-                    child: ListTile(
-                      title: Text(result.movie.toString()),
-                    ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 150,
+                        child: ListTile(
+                          title: Text(result.movie.toString()),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 150,
+                        child: ListTile(
+                          title: Text('Wow Nº ' +
+                              result.current_wow_in_movie.toString()),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),

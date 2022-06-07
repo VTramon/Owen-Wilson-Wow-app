@@ -11,8 +11,16 @@ import 'package:owen_wilson/models/api.dart';
 
 class WowContainer extends BlocContainer {
   final String? resultsLength;
+  final String content;
+  final String? movie;
 
-  const WowContainer({Key? key, this.resultsLength = '1'}) : super(key: key);
+  const WowContainer(
+      {Key? key,
+      this.resultsLength = '1',
+      this.movie,
+      this.year,
+      required this.content})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +28,13 @@ class WowContainer extends BlocContainer {
       create: (BuildContext context) {
         final cubit = WowCubit();
 
-        cubit.showContent(context, resultsLength: resultsLength);
+        if (content == 'byMovie') {
+          cubit.showContentByMovie(context,
+              resultsLength: resultsLength, movie: movie!);
+          return cubit;
+        }
+
+        cubit.showContentRandom(context, resultsLength: resultsLength);
         return cubit;
       },
       child: BlocListener<WowCubit, WowContentState>(

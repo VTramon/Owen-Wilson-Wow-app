@@ -21,9 +21,14 @@ class _RandomFormState extends State<RandomForm> {
         ScreenButtonComponent(
           onPressed: () async {
             if (widget.text!.text.isNotEmpty) {
-              push(context, WowContainer(resultsLength: widget.text!.text));
+              push(
+                  context,
+                  WowContainer(
+                    resultsLength: widget.text!.text,
+                    content: 'random',
+                  ));
             } else {
-              push(context, const WowContainer());
+              push(context, const WowContainer(content: 'random'));
             }
           },
           title: 'Random',

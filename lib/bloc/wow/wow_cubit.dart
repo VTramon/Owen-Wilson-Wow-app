@@ -7,8 +7,22 @@ import 'package:owen_wilson/models/api.dart';
 class WowCubit extends Cubit<WowContentState> {
   WowCubit() : super(const LoadingWowContentState());
 
-  showContent(BuildContext context, {String? resultsLength}) async {
+  showContentRandom(BuildContext context, {String? resultsLength}) async {
     WowWebclient().random(resultsLength: resultsLength).then((List<Api> value) {
+      emit(LoadedWowContentState(value));
+    }).catchError(
+      (error) {
+        emit(ErrorWowContentState(error));
+      },
+    );
+  }
+
+  showContentByMovie(BuildContext context,
+      {required String movie, String? resultsLength}) async {
+    debugPrint('results length: ' + resultsLength.toString());
+    WowWebclient()
+        .byMovie(resultsLength: resultsLength, movie: movie)
+        .then((List<Api> value) {
       emit(LoadedWowContentState(value));
     }).catchError(
       (error) {
