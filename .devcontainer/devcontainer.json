@@ -8,6 +8,6 @@
   },
   "runArgs": ["--privileged"],
   "extensions": ["Dart-Code.flutter", "Dart-Code.dart-code"],
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/app,type=bind,consistency=delegated",
-  "workspaceFolder": "/workspace/app"
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/developer/app,type=bind,consistency=delegated",
+  "workspaceFolder": "/home/developer/app"
 }

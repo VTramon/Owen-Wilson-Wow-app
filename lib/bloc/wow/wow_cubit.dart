@@ -19,9 +19,21 @@ class WowCubit extends Cubit<WowContentState> {
 
   showContentByMovie(BuildContext context,
       {required String movie, String? resultsLength}) async {
-    debugPrint('results length: ' + resultsLength.toString());
     WowWebclient()
         .byMovie(resultsLength: resultsLength, movie: movie)
+        .then((List<Api> value) {
+      emit(LoadedWowContentState(value));
+    }).catchError(
+      (error) {
+        emit(ErrorWowContentState(error));
+      },
+    );
+  }
+
+  showContentByYear(BuildContext context,
+      {required String year, String? resultsLength}) async {
+    WowWebclient()
+        .byYear(resultsLength: resultsLength, year: year.toString())
         .then((List<Api> value) {
       emit(LoadedWowContentState(value));
     }).catchError(

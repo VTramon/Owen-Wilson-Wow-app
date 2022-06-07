@@ -56,7 +56,6 @@ class _ByMovieState extends State<ByMovie> {
             list: _movies,
             title: 'Movie',
             onSelect: (String value) {
-              debugPrint(value);
               widget.movie = value;
             }),
         RandomWowInputText(
@@ -65,7 +64,6 @@ class _ByMovieState extends State<ByMovie> {
         ),
         ScreenButtonComponent(
           onPressed: () async {
-            debugPrint(widget.movie);
             if (widget.resultLength!.text.isNotEmpty) {
               push(
                   context,
@@ -79,7 +77,7 @@ class _ByMovieState extends State<ByMovie> {
                   WowContainer(movie: widget.movie, content: 'byMovie'));
             }
           },
-          title: 'byMovie',
+          title: 'by Movie',
         )
       ],
     );

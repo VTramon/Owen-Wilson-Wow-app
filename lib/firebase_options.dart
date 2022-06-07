@@ -63,8 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '5551288253',
     projectId: 'owen-wilson-app',
     storageBucket: 'owen-wilson-app.appspot.com',
-    androidClientId: '5551288253-2rolkbnfmtqs5rdb2aslu104fugp5qb6.apps.googleusercontent.com',
-    iosClientId: '5551288253-upbdiei17b02u0tukq8upcl0h96qhkpo.apps.googleusercontent.com',
+    iosClientId:
+        '5551288253-upbdiei17b02u0tukq8upcl0h96qhkpo.apps.googleusercontent.com',
     iosBundleId: 'com.example.owenWilson',
   );
 }
