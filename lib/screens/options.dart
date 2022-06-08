@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/components/buttons/wow_button.dart';
+import 'package:owen_wilson/components/wow_options_forms/by_director.dart';
 import 'package:owen_wilson/components/wow_options_forms/by_movie.dart';
 import 'package:owen_wilson/components/wow_options_forms/by_year.dart';
 import 'package:owen_wilson/components/wow_options_forms/random.dart';
@@ -63,7 +64,7 @@ class _OptionScreenState extends State<OptionScreen> {
                     title: 'By movie',
                   ),
                   WowButton(
-                    onPressed: null,
+                    onPressed: () => _setSelectedButton(ByDirector()),
                     title: 'By director',
                   ),
                 ],

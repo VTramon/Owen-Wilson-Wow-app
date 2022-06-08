@@ -42,4 +42,17 @@ class WowCubit extends Cubit<WowContentState> {
       },
     );
   }
+
+  showContentByDirector(BuildContext context,
+      {required String director, String? resultsLength}) async {
+    WowWebclient()
+        .byDirector(resultsLength: resultsLength, director: director.toString())
+        .then((List<Api> value) {
+      emit(LoadedWowContentState(value));
+    }).catchError(
+      (error) {
+        emit(ErrorWowContentState(error));
+      },
+    );
+  }
 }

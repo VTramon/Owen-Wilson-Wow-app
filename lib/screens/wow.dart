@@ -14,12 +14,14 @@ class WowContainer extends BlocContainer {
   final String content;
   final String? movie;
   final String? year;
+  final String? director;
 
   const WowContainer(
       {Key? key,
       this.resultsLength = '1',
       this.movie,
       this.year,
+      this.director,
       required this.content})
       : super(key: key);
 
@@ -38,6 +40,12 @@ class WowContainer extends BlocContainer {
         if (content == 'byYear') {
           cubit.showContentByYear(context,
               resultsLength: resultsLength, year: year!);
+          return cubit;
+        }
+
+        if (content == 'byDirector') {
+          cubit.showContentByDirector(context,
+              resultsLength: resultsLength, director: director!);
           return cubit;
         }
 

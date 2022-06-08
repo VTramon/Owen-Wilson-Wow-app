@@ -77,7 +77,7 @@ class _ByMovieState extends State<ByMovie> {
                   WowContainer(movie: widget.movie, content: 'byMovie'));
             }
           },
-          title: 'by Movie',
+          title: 'By movie',
         )
       ],
     );
