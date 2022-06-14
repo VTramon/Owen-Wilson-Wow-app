@@ -6,16 +6,19 @@ import 'package:owen_wilson/components/profile_icon.dart';
 import 'package:owen_wilson/components/text_card.dart';
 import 'package:owen_wilson/screens/options.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  // final User? user;
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    // Provider.of<LoggedUser>(context, listen: false).signIn(widget.user);
+
     return WillPopScope(
       child: Scaffold(
           appBar: AppBar(
@@ -127,7 +130,7 @@ class _HomeBodyState extends State<_HomeBody> {
                 "Owen Cunningham Wilson (born November 18, 1968)[3] is an American actor. He has had a long association with filmmaker Wes Anderson with whom he shared writing and acting credits for Bottle Rocket (1996), Rushmore (1998), and The Royal Tenenbaums (2001), the last of which earned him a nomination for the Academy Award and BAFTA Award for Best Screenplay. He has also appeared in Anderson's The Life Aquatic with Steve Zissou (2004), The Darjeeling Limited (2007), The Grand Budapest Hotel (2014), and The French Dispatch (2021). Wilson also starred in the Woody Allen romantic comedy Midnight in Paris (2011) as unsatisfied screenwriter Gil Pender, a role which earned him a Golden Globe Award nomination. In 2014 he appeared in Paul Thomas Anderson's Inherent Vice, and Peter Bogdanovich's She's Funny That Way."),
         TextCard(
           content:
-              "Wilson is also known for his career as an onscreen comedian and member of the Frat Pack including starring in such comedies as Zoolander (2001), Starsky & Hutch (2004), Wedding Crashers (2005), You, Me and Dupree (2006), How Do You Know (2010), The Big Year (2011), and The Internship (2013). He is also known for the family films Marley and Me (2008), and the Night at the Museum film series (2005–2014). He voices Lightning McQueen in the Cars film series (2006–present), Coach Skip in Fantastic Mr. Fox (2009), the title character in Marmaduke (2010) and Reggie in Free Birds (2013). He stars as Mobius M. Mobius in the Disney+ series Loki (2021–present).",
+              "Wilson is also known for his career as an onscreen comedian and member of the Frat Pack including starring in such comedies as Zoolander (2001), Starsky & Hutch (2004), Wedding Crashers (2005), You, Me and Dupree (2006), How Do You Know (2010), The Big Year (2011), and The Internship (2013). He is also known for the family films Marley and Me (2008), and the Night at the Museum film series (2005-2014). He voices Lightning McQueen in the Cars film series (2006-present), Coach Skip in Fantastic Mr. Fox (2009), the title character in Marmaduke (2010) and Reggie in Free Birds (2013). He stars as Mobius M. Mobius in the Disney+ series Loki (2021-present).",
         ),
       ],
     );

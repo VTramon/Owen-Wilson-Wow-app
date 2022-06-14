@@ -3,9 +3,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:owen_wilson/firebase/authentication.dart';
-import 'package:owen_wilson/models/logged_user.dart';
 import 'package:owen_wilson/screens/home.dart';
 import 'package:provider/provider.dart';
+
+import '../models/logged_user.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -44,12 +45,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     SignInButton(
                       onPressed: () async {
                         user = await Authentication.signInWithGoogle();
+
                         Provider.of<LoggedUser>(context, listen: false)
                             .signIn(user);
 
                         await Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+                            builder: (context) => const HomeScreen(),
                           ),
                         );
                       },
@@ -70,7 +72,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const HomePage(),
+                                builder: (context) => const HomeScreen(),
                               ),
                             );
                           },

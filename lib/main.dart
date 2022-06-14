@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     return MaterialApp(
       routes: {
         '/signIn': (context) => const SignInScreen(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) => const HomeScreen(),
         '/options': (context) => OptionScreen(),
       },
       theme: ThemeData(
