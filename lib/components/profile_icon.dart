@@ -13,24 +13,29 @@ class ProfileIcon extends StatelessWidget {
     String selectedMenu = '';
 
     return Consumer<LoggedUser>(
-        builder: ((context, value, child) => PopupMenuButton(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 8.0),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(value.photoUrl.toString()),
-                ),
+      builder: ((context, value, child) => PopupMenuButton(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16.0, top: 8.0),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(value.photoUrl!),
+                onBackgroundImageError: (object, stack) {
+                  const AssetImage('images/wow.png');
+                },
+                // backgroundImage: NetworkImage(value.photoUrl.toString()),
               ),
-              onSelected: (item) {
-                Authentication.signOut();
-                LoggedUser().signOut();
-                Navigator.of(context).pushNamed('/signIn');
-              },
-              itemBuilder: (BuildContext context) => [
-                const PopupMenuItem(
-                  child: Text('Logout'),
-                  value: 'value',
-                ),
-              ],
-            )));
+            ),
+            onSelected: (item) {
+              Authentication.signOut();
+              LoggedUser().signOut();
+              Navigator.of(context).pushNamed('/signIn');
+            },
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem(
+                child: Text('Logout'),
+                value: 'value',
+              ),
+            ],
+          )),
+    );
   }
 }

@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 
 class TextCard extends StatelessWidget {
-  final String content;
+  final String? content;
   final List<TextSpan>? children;
-  const TextCard({Key? key, required this.content, this.children})
-      : super(key: key);
+  const TextCard({Key? key, this.content, this.children}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
