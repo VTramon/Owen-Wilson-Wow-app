@@ -10,7 +10,7 @@ import 'package:owen_wilson/models/options.dart';
 
 class OptionScreen extends StatefulWidget {
   OptionsModel option = OptionsModel();
-  Widget? selected;
+  late Widget? selected;
 
   OptionScreen({Key? key, this.selected}) : super(key: key);
 

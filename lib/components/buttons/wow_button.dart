@@ -1,20 +1,15 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:owen_wilson/models/options.dart';
 
 class WowButton extends StatefulWidget {
   final String title;
   final void Function()? onPressed;
-  final bool? selected;
-  OptionsModel? option = OptionsModel();
 
-  WowButton({
+  const WowButton({
     Key? key,
-    this.option,
     required this.title,
     this.onPressed,
-    this.selected,
   }) : super(key: key);
 
   @override

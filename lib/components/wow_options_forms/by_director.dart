@@ -7,7 +7,7 @@ import 'package:owen_wilson/screens/wow.dart';
 
 class ByDirector extends StatefulWidget {
   final TextEditingController? resultLength = TextEditingController();
-  String? director;
+  late String? director;
   ByDirector({Key? key, this.director}) : super(key: key);
 
   @override
