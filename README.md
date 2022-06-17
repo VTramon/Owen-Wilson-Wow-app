@@ -1,16 +1,44 @@
-# owen_wilson
+# Owen Wilson WOW App
 
-A new Flutter project.
+An app tha you can 
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+#### 1º - Clone the repository.
 
-A few resources to get you started if this is your first Flutter project:
+```git
+git clone https://github.com/VTramon/Owen-Wilson-Wow-app.git
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#### 2º - Get the packages
+```
+flutter pub get
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### 3º - Make sure the firebase-tools and flutterfire_cli are installed and configured
+```
+npm install -g firebase-tools
+
+dart pub global activate flutterfire_cli
+
+flutterfire configure
+```
+
+
+## Usage
+
+
+check if the app SHA keys are in the firebase console
+```
+cd android
+
+./gradlew signingReport
+```
+
+Run the application
+```
+flutter run
+```
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
